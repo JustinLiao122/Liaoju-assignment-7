@@ -33,10 +33,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
  
     - name: Run Flask App for Testing
-      env:
-        FLASK_APP: app.py
-        FLASK_ENV: development
-      run: |
-        nohup flask run &   # Run Flask app in the background
-        sleep 5             # Wait a few seconds to ensure it starts
-        curl http://127.0.0.1:5000 || exit 1  # Test if the app is running
+        make install
+        make run &
+        sleep 10
+        curl --fail http://localhost:3000 || exit 1
